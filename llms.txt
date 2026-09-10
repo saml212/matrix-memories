@@ -1,0 +1,24 @@
+# matrix-states
+
+> Research code, paper sources, and raw result archives from Samuel Larson (Pebble ML) on matrix-valued state in language models: whether gradient descent recruits the rank a task demands, and how to measure it. Readable research notes: https://pebbleml.com
+
+## Papers
+
+- [The Gradient Does Not See Rank: Rank-Indifference in Matrix-CODI on ProsQA](https://arxiv.org/abs/2609.03090): ICML 2026 Mechanistic Interpretability Workshop. A matrix bottleneck bolted onto a continuous-reasoning model is rank-blind: the rank-k ablation curve is flat, seeds land at effective ranks 4 to 13 at similar accuracy, and four nonlinear readouts do not change that. Code: https://github.com/saml212/matrix-codi-rank-blindness. Source: matrix-thinking/submissions/icml-mi-workshop-2026/
+- [The Rank the Task Demands: A Causal Rank Law for Matrix Memories Trained on Group Composition](papers/neurreps-ea/arxiv-v3/main.pdf): arXiv preprint, September 2026. On five finite groups, a matrix memory trained from scratch recruits effective rank tracking the minimal faithful representation dimension d_min; a force-rank test shows recovery is capped below d_min by geometry and clears the pre-registered bar at d_min in all five groups at four seeds each. Source: papers/neurreps-ea/arxiv-v3/. Code: matrix-thinking/capability_separation/. Evidence map: papers/neurreps-ea/arxiv-v3/README.md
+
+## Code
+
+- [matrix-thinking/capability_separation/](matrix-thinking/capability_separation/README.md): the rank-law experiments (groups, task, model, readout, force-rank arms, runner).
+- [matrix-thinking/deltanet_rd/](matrix-thinking/deltanet_rd/): fast-weight (DeltaNet) binding and composition program.
+- [requirements.txt](requirements.txt): Python dependencies.
+
+## Data
+
+- [experiment-runs/](experiment-runs/README.md): dated archives of the exact scripts and result JSONs behind every number (files up to 25 MB).
+- [Slamin/ncr-scaling-artifacts on Hugging Face](https://huggingface.co/datasets/Slamin/ncr-scaling-artifacts): checkpoints and results from the scaling program (3.9 TB).
+- [EXPERIMENT_LOG.md](EXPERIMENT_LOG.md): chronological experiment log.
+
+## Citing
+
+- [CITATION.cff](CITATION.cff)

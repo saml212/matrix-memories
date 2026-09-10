@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use this code or these results, please cite the relevant paper."
+title: "matrix-states: matrix-valued state as a representational medium for language models"
+authors:
+  - family-names: Larson
+    given-names: Samuel
+    affiliation: Pebble ML
+    orcid: "https://orcid.org/0009-0006-1253-9187"
+repository-code: "https://github.com/saml212/matrix-states"
+url: "https://pebbleml.com"
+preferred-citation:
+  type: conference-paper
+  title: "The Gradient Does Not See Rank: Rank-Indifference in Matrix-CODI on ProsQA"
+  authors:
+    - family-names: Larson
+      given-names: Samuel
+      affiliation: Pebble ML
+  conference:
+    name: "ICML 2026 Workshop on Mechanistic Interpretability"
+  year: 2026
+  identifiers:
+    - type: other
+      value: "arXiv:2609.03090"
+  url: "https://arxiv.org/abs/2609.03090"
+references:
+  - type: unpublished
+    title: "The Rank the Task Demands: A Causal Rank Law for Matrix Memories Trained on Group Composition"
+    authors:
+      - family-names: Larson
+        given-names: Samuel
+        affiliation: Pebble ML
+    year: 2026
+    notes: "arXiv preprint, submitted September 2026; source in papers/neurreps-ea/arxiv-v3/"

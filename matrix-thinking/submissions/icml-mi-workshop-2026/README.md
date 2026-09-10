@@ -6,16 +6,22 @@
 **Decision:** Accept (Virtual Poster). Acceptance rate ~44% (356 / ~800).
 **OpenReview:** https://openreview.net/forum?id=Spof4PusVI  (submission id `Spof4PusVI`, number 572)
 **Public code release:** https://github.com/saml212/matrix-codi-rank-blindness
+**arXiv:** https://arxiv.org/abs/2609.03090 (v1, posted 2 Sep 2026; source in `arxiv/`)
 
-## Status (as of 2026-06-21)
+## Status (as of 2026-09-10)
 
 | Deliverable | Deadline | Status |
 |---|---|---|
 | Acceptance instructions form (Google) | 21 Jun 2026 | ✅ submitted |
 | Virtual poster upload (Google) | 3 Jul 2026 | ✅ submitted |
 | Camera-ready (OpenReview revision) | 21 Jul 2026, 15:59 PDT | ✅ submitted |
+| arXiv posting | — | ✅ arXiv:2609.03090, 2 Sep 2026, with the correction below in the comments field |
+| OpenReview erratum note | — | ⬜ Sam to post (text in `CORRECTION_2026-09-01.md` §4) |
 
-Next (not yet done): arXiv posting + Google Scholar indexing. See `ARXIV_PLAN.md`.
+The arXiv version corrects a data-entry error in the workshop version: the
+seed-1337 accuracy was reported as 80.47% (a control run); the archived value
+is 78.91%, so the three-seed mean is 81.0 ± 2.0pp (was 81.5 ± 1.2pp). Every
+other result is unchanged. Details: `CORRECTION_2026-09-01.md`.
 
 ## Where everything is
 
