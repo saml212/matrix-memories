@@ -1,0 +1,211 @@
+\begin{thebibliography}{29}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Anderson(1972)]{anderson1972simple}
+James~A. Anderson.
+\newblock A simple neural network generating an interactive memory.
+\newblock \emph{Mathematical Biosciences}, 14\penalty0 (3--4):\penalty0
+  197--220, 1972.
+
+\bibitem[Barnfield et~al.(2026)Barnfield, Kim, Nichani, Lee, and
+  Lu]{barnfield2026sharp}
+Nicholas Barnfield, Juno Kim, Eshaan Nichani, Jason~D. Lee, and Yue~M. Lu.
+\newblock Sharp capacity thresholds in linear associative memory.
+\newblock \emph{arXiv preprint arXiv:2605.05189}, 2026.
+
+\bibitem[Barrington(1989)]{barrington1989}
+David A.~Mix Barrington.
+\newblock Bounded-width polynomial-size branching programs recognize exactly
+  those languages in {NC}$^1$.
+\newblock \emph{Journal of Computer and System Sciences}, 38\penalty0
+  (1):\penalty0 150--164, 1989.
+
+\bibitem[Barrington and Th{\'e}rien(1988)]{barringtontherien1988}
+David A.~Mix Barrington and Denis Th{\'e}rien.
+\newblock Finite monoids and the fine structure of {NC}$^1$.
+\newblock \emph{Journal of the ACM}, 35\penalty0 (4):\penalty0 941--952, 1988.
+
+\bibitem[Chughtai et~al.(2023)Chughtai, Chan, and
+  Nanda]{chughtai2023universality}
+Bilal Chughtai, Lawrence Chan, and Neel Nanda.
+\newblock A toy model of universality: Reverse engineering how networks learn
+  group operations.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2023.
+\newblock arXiv:2302.03025.
+
+\bibitem[Del{\'e}tang et~al.(2023)Del{\'e}tang, Ruoss, Grau-Moya, Genewein,
+  Wenliang, Catt, Cundy, Hutter, Legg, Veness, and Ortega]{deletang2023chomsky}
+Gr{\'e}goire Del{\'e}tang, Anian Ruoss, Jordi Grau-Moya, Tim Genewein, Li~Kevin
+  Wenliang, Elliot Catt, Chris Cundy, Marcus Hutter, Shane Legg, Joel Veness,
+  and Pedro~A. Ortega.
+\newblock Neural networks and the chomsky hierarchy.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2023.
+\newblock arXiv:2207.02098.
+
+\bibitem[Grazzi et~al.(2025)Grazzi, Siems, Zela, Franke, Hutter, and
+  Pontil]{grazzi2025negative}
+Riccardo Grazzi, Julien Siems, Arber Zela, J{\"o}rg K.~H. Franke, Frank Hutter,
+  and Massimiliano Pontil.
+\newblock Unlocking state-tracking in linear {RNN}s through negative
+  eigenvalues.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2025.
+\newblock arXiv:2411.12537.
+
+\bibitem[He et~al.(2026)He, Wang, Zhang, Chen, and Yang]{he2026spectral}
+Jianliang He, Leda Wang, Fengzhuo Zhang, Siyu Chen, and Zhuoran Yang.
+\newblock Neural networks provably learn spectral representations for group
+  composition.
+\newblock \emph{arXiv preprint arXiv:2606.02993}, 2026.
+
+\bibitem[Huh et~al.(2024)Huh, Cheung, Wang, and Isola]{huh2024platonic}
+Minyoung Huh, Brian Cheung, Tongzhou Wang, and Phillip Isola.
+\newblock Position: The platonic representation hypothesis.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2024.
+\newblock arXiv:2405.07987.
+
+\bibitem[Kazanskii(2026)]{kazanskii2026grokking}
+Maksim~A. Kazanskii.
+\newblock How to tame grokking: Representation geometry as a control signal.
+\newblock \emph{arXiv preprint arXiv:2607.11666}, 2026.
+
+\bibitem[Kohonen(1972)]{kohonen1972correlation}
+Teuvo Kohonen.
+\newblock Correlation matrix memories.
+\newblock \emph{IEEE Transactions on Computers}, C-21\penalty0 (4):\penalty0
+  353--359, 1972.
+
+\bibitem[Larson(2026{\natexlab{a}})]{larson2026companion}
+Samuel Larson.
+\newblock When the gradient sees rank: Provable necessity, causal recruitment,
+  and exact composition in trained matrix memories, 2026{\natexlab{a}}.
+\newblock Companion paper, in preparation for arXiv.
+
+\bibitem[Larson(2026{\natexlab{b}})]{larson2026gradient}
+Samuel Larson.
+\newblock The gradient does not see rank: Rank-indifference in matrix-{CODI} on
+  {ProsQA}.
+\newblock In \emph{ICML 2026 Workshop on Mechanistic Interpretability},
+  2026{\natexlab{b}}.
+\newblock ICML 2026 Mechanistic Interpretability Workshop; arXiv:2609.03090.
+
+\bibitem[Liu et~al.(2023)Liu, Ash, Goel, Krishnamurthy, and
+  Zhang]{liu2023shortcuts}
+Bingbin Liu, Jordan~T. Ash, Surbhi Goel, Akshay Krishnamurthy, and Cyril Zhang.
+\newblock Transformers learn shortcuts to automata.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2023.
+\newblock arXiv:2210.10749.
+
+\bibitem[Marchetti et~al.(2026)Marchetti, Kunin, Myers, Acosta, and
+  Miolane]{marchetti2026sequential}
+Giovanni~Luca Marchetti, Daniel Kunin, Adele Myers, Francisco Acosta, and Nina
+  Miolane.
+\newblock Sequential group composition: A window into the mechanics of deep
+  learning.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2026.
+\newblock arXiv:2602.03655.
+
+\bibitem[Merrill et~al.(2024)Merrill, Petty, and
+  Sabharwal]{merrill2024illusion}
+William Merrill, Jackson Petty, and Ashish Sabharwal.
+\newblock The illusion of state in state-space models.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2024.
+\newblock arXiv:2404.08819.
+
+\bibitem[Mishra et~al.(2026)Mishra, Tan, Stoica, Gonzalez, and
+  Dao]{mishra2026m2rnn}
+Mayank Mishra, Shawn Tan, Ion Stoica, Joseph Gonzalez, and Tri Dao.
+\newblock {M\textsuperscript{2}RNN}: Non-linear {RNN}s with matrix-valued
+  states for scalable language modeling.
+\newblock \emph{arXiv preprint arXiv:2603.14360}, 2026.
+
+\bibitem[Nazari and Rusch(2026)]{nazari2026rank}
+Philipp Nazari and T.~Konstantin Rusch.
+\newblock The key to state reduction in linear attention: A rank-based
+  perspective.
+\newblock \emph{arXiv preprint arXiv:2602.04852}, 2026.
+
+\bibitem[Nichani et~al.(2025)Nichani, Lee, and Bietti]{nichani2025factual}
+Eshaan Nichani, Jason~D. Lee, and Alberto Bietti.
+\newblock Understanding factual recall in transformers via associative
+  memories.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2025.
+\newblock arXiv:2412.06538, Spotlight.
+
+\bibitem[Nowak et~al.(2026)Nowak, Cotterell, and
+  Boumasmoud]{nowak2026algebraic}
+Franz Nowak, Ryan Cotterell, and Reda Boumasmoud.
+\newblock An algebraic view of the expressivity of recurrent language models.
+\newblock In \emph{International Conference on Machine Learning (ICML)}, 2026.
+\newblock arXiv:2606.01765.
+
+\bibitem[Parnichkun et~al.(2025)Parnichkun, Tumma, Thomas, Moro, An, Suzuki,
+  Yamashita, Poli, and Massaroli]{parnichkun2025ess}
+Rom~N. Parnichkun, Neehal Tumma, Armin~W. Thomas, Alessandro Moro, Qi~An, Taiji
+  Suzuki, Atsushi Yamashita, Michael Poli, and Stefano Massaroli.
+\newblock Quantifying memory utilization with effective state-size.
+\newblock \emph{arXiv preprint arXiv:2504.19561}, 2025.
+
+\bibitem[Shakerinava et~al.(2026)Shakerinava, Khavari, Ravanbakhsh, and
+  Chandar]{shakerinava2026diagonal}
+Mehran Shakerinava, Behnoush Khavari, Siamak Ravanbakhsh, and Sarath Chandar.
+\newblock The expressive limits of diagonal {SSM}s for state-tracking.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2026.
+\newblock arXiv:2603.01959.
+
+\bibitem[Shutman et~al.(2025)Shutman, Louidor, and Tessler]{shutman2025words}
+Maor Shutman, Oren Louidor, and Ran Tessler.
+\newblock Learning words in groups: Fusion algebras, tensor ranks and grokking.
+\newblock \emph{arXiv preprint arXiv:2509.06931}, 2025.
+
+\bibitem[Siems et~al.(2025)Siems, Carstensen, Zela, Hutter, Pontil, and
+  Grazzi]{siems2025deltaproduct}
+Julien Siems, Timur Carstensen, Arber Zela, Frank Hutter, Massimiliano Pontil,
+  and Riccardo Grazzi.
+\newblock {DeltaProduct}: Improving state-tracking in linear {RNN}s via
+  householder products.
+\newblock In \emph{Advances in Neural Information Processing Systems
+  (NeurIPS)}, 2025.
+\newblock arXiv:2502.10297.
+
+\bibitem[Stander et~al.(2024)Stander, Yu, Fan, and Biderman]{stander2024cosets}
+Dashiell Stander, Qinan Yu, Honglu Fan, and Stella Biderman.
+\newblock Grokking group multiplication with cosets.
+\newblock \emph{arXiv preprint arXiv:2312.06581}, 2024.
+
+\bibitem[Sun et~al.(2026)Sun, Zhang, Zhou, Ma, Qin, Su, Liu, Ma, Xu, Gao, Hao,
+  and He]{sun2026staterank}
+Ao~Sun, Hongtao Zhang, Heng Zhou, Yixuan Ma, Yiran Qin, Tongrui Su, Yan Liu,
+  Zhanyu Ma, Jun Xu, Jiuchong Gao, Jinghua Hao, and Renqing He.
+\newblock State rank dynamics in linear attention {LLMs}.
+\newblock \emph{arXiv preprint arXiv:2602.02195}, 2026.
+
+\bibitem[Truong et~al.(2026)Truong, Truong, Luu, and Phan]{truong2026spectral}
+Xuan~Khanh Truong, Quynh~Hoa Truong, Duc~Trung Luu, and Thanh~Duc Phan.
+\newblock Spectral entropy collapse as a phase transition in delayed
+  generalisation: An interventional and predictive framework for grokking.
+\newblock \emph{arXiv preprint arXiv:2604.13123}, 2026.
+
+\bibitem[Wu et~al.(2025)Wu, Jaburi, Drori, and Gross]{wu2025unified}
+Wilson Wu, Louis Jaburi, Jacob Drori, and Jason Gross.
+\newblock Towards a unified and verified understanding of group-operation
+  networks.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2025.
+\newblock arXiv:2410.07476.
+
+\bibitem[Zhang et~al.(2026)Zhang, Hu, Peng, and Xie]{zhang2026recurrence}
+Tong Zhang, Junhao Hu, Yun Peng, and Tao Xie.
+\newblock When does recurrence become an algorithm? convergence selection in
+  weight-tied looped transformers.
+\newblock \emph{arXiv preprint arXiv:2607.20594}, 2026.
+
+\end{thebibliography}
