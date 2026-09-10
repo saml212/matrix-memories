@@ -1,0 +1,49 @@
+\section{Task, Rank Requirement, and Experimental Controls}
+\label{sec:setup}
+
+\textbf{Task and rank requirement.} Each episode presents $K$
+key--value pairs, then queries one key. Keys and values are sampled
+anew for each episode (Gaussian, normalized, or exactly orthonormal
+following \citealp{mezzadri2007random}), so evaluation uses new
+bindings. Write the keys and values as the columns of $\Kmat$ and
+$\Vmat$. Exact recovery, $Z k_j = v_j$ for all $K$ bindings with
+linearly independent keys and values, requires $Z \Kmat = \Vmat$.
+The classical rank inequality then gives
+\[
+K = \rank(\Vmat) = \rank(Z \Kmat) \leq \rank(Z)
+\]
+\citep{kohonen1972correlation,anderson1972simple}.
+We test whether training with Adam learns the required rank and how
+restricting rank affects recovery.
+
+\textbf{Fixed linear readout.}
+\citet{nichani2025factual} construct a rank-$m$ linear memory storing
+approximately $md$ associations under interference-tolerant argmax
+decoding. The exact-recovery rank requirement above does not apply to
+that decoding rule. Here, the prediction is the vector $Z k_j$, with
+no argmax or learned readout. Training minimizes one minus cosine
+similarity. We report $\recninety$, the fraction of queries with
+cosine similarity greater than 0.9. This threshold measures approximate
+recovery; it does not require $Z k_j = v_j$ exactly.
+
+\textbf{Single-state bottleneck.}
+A full-attention decoder could retrieve individual bindings from
+separate input positions. To prevent this, the decoder reads only
+$(Z, \mathrm{query})$, where $Z$ is one $d \times d$ state. After the
+encoder writes $Z$, we corrupt the raw-input cache and confirm that
+the decoder output is bit-for-bit unchanged.
+% <!-- evidence: R10 -->
+
+\textbf{Model and rank controls.} A Transformer encoder processes the
+binding tokens. It uses $d$ learned row-reader latents to produce the
+rows of $Z \in \R^{d \times d}$. The mapping is permutation-invariant,
+can express rank up to $d$, and does not hard-code
+$\sum_j v_j k_j^\top$. Every model has fewer than 1M parameters; the
+$d = 16$ composition model has 170{,}896.
+% <!-- evidence: R9 -->
+Effective rank, the exponential of the entropy of the normalized
+singular-value spectrum, is the pre-registered primary metric.
+In the causal control, spectral projection restricts $Z$ to rank at
+most $k$ at every training step, with backpropagation through the
+projection. The restriction is therefore part of training, rather
+than an intervention applied only after training.

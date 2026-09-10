@@ -1727,3 +1727,8 @@ No further waves are scheduled inside any of these closed designs; opening a new
 - **`H100_SETUP.md`** — pod environment + unattended-sweep pattern. **`QUEUE.md`** — banner + pointer table only (historical body in `archive/`). **`src/`, `chapter2/*.py`, `deltanet_rd/`** — model/training code. **`submissions/`** — `icml-mi-workshop-2026/` (accepted), `neurips-ws-2026/` (drafting), plus the paper trees for `workshop-2026/` and `iclr-2027/`.
 
 **Elsewhere:** `experiment-runs/README.md` (hybrid archive policy: ≤25MB tracked in git, larger payloads SSD-only); `experiment-runs/` (per-run scripts + results, dated directories); `research/` (literature surveys, see `research/README.md`); `archive/` (dead ends + historical material, see `archive/README.md`).
+
+
+## 2026-09-10 — Rank recruitment companion prose and layout revision
+
+Author-requested prose/spacing work only; no experiments. New working draft `papers/rank-recruitment-ws/arxiv-v2` preserves v1, reported values, and both plotted PDFs. Corrected Adam/exp(entropy) terminology against code; separated exact linear requirements from cosine-threshold measurements; clarified composition notation and numerical-failure scope. Fixed table-caption gaps and appendix flow. Six-page final PDF passed independent prose and all-page render checks. See `arxiv-v2/SCRUB_LOG.md` and `arxiv-v2/review/`. Companion has not been submitted; next step is the author's teaching/read-through review. PDF SHA256: `614e972db6857e00d80b2e4536030e4c6dbb2de9a0c60664b2af721216e45fae`.

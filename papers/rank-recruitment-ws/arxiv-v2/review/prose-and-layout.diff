@@ -1,0 +1,700 @@
+--- arxiv-v1/main.tex
++++ arxiv-v2/main.tex
+@@ -1,11 +1,7 @@
+-% arXiv NAMED build, v1 (2026-09-03): the NeurReps extended abstract
+-% (papers/rank-recruitment-ws/) retypeset for arXiv as the companion to
+-% "The Rank the Task Demands" (papers/neurreps-ea/arxiv-v2/). Body text,
+-% numbers, and evidence tags are carried over unchanged; only the
+-% template, author block, keywords line, companion-paper citation, and the
+-% code-availability sentence differ from the review build.
+-% Typeset on the NeurIPS kit (neurips.sty, [final] mode) with the venue
+-% notice blanked; no venue name appears anywhere in the compiled text.
++% Named arXiv working draft v2 (2026-09-10).
++% Prose and layout revision of arxiv-v1; experimental data, figure files,
++% result values, title, citations, and evidence tags are preserved.
++% See SCRUB_LOG.md for wording corrections and verification. Not submitted.
+ 
+ \documentclass{article}
+ 
+@@ -19,6 +15,17 @@
+ \makeatother
+ 
+ \usepackage{float}
++\usepackage{needspace}
++
++% This paper places table captions below the table, unlike the template.
++% Leave one body-text line between each table and its caption.
++\makeatletter
++\renewenvironment{table}
++  {\setlength{\abovecaptionskip}{\baselineskip}%
++   \setlength{\belowcaptionskip}{0pt}%
++   \@float{table}}
++  {\end@float}
++\makeatother
+ 
+ \usepackage[utf8]{inputenc}
+ \usepackage[T1]{fontenc}
+@@ -59,34 +66,34 @@
+ \maketitle
+ 
+ \begin{abstract}
+-Matrix-valued fast-weight memories make rank a structural budget: the
+-directions a state spans bound what it can bind and compose. A recent
+-negative result reported that a matrix latent bolted onto a
+-vector-pretrained reasoner never uses its rank, but the probed task admits
+-a rank-1 solution, leaving the general question open. We answer it on
+-testbeds where the exact solution provably requires
+-$\rank(Z) \geq K$ and where every rank-evading shortcut is closed by
+-construction: the readout is pinned to exact continuous recovery, since
+-argmax decoding lets a rank-$m$ memory store roughly $md$ associations; a
+-single-matrix-state bottleneck forecloses position decomposition; and no
+-cell is called dead without re-testing at 2--2.5$\times$ budget. Under
+-these conditions gradient descent recruits the rank the task demands in
+-this architecture family:
+-learned effective rank tracks $K$ across the tested grid (Spearman
+-$\rho = 1.0$ at $d = 16$),
++Can gradient-based training learn the rank needed to store and compose
++associations in a matrix memory? A prior negative result used a
++matrix-augmented reasoner on a task that admits a rank-1 solution,
++leaving this question open. We train matrix memories on $K$ fresh key--value
++bindings whose exact linear recovery requires $\rank(Z) \geq K$.
++A fixed linear readout queries a single matrix state without access to
++the original bindings. Experiments measure recovery by cosine similarity
++greater than 0.9, a threshold distinct from mathematical equality.
++Learned effective rank increases with $K$ across the tested grid
++(Spearman $\rho = 1.0$ at $d = 16$).
+ % <!-- evidence: R1 -->
+-train-time rank caps show a causal step at $k \approx K$ (at $d = 8$,
+-$K = 4$: rank 3 gives at most 0.0004 recovery, rank 4 gives 0.97),
++Training-time rank caps produce a recovery transition near $k = K$:
++at $d = 8$, $K = 4$, rank 3 gives at most 0.0004 recovery and rank 4
++gives 0.97.
+ % <!-- evidence: R2 -->
+-and the trained operator composes exactly through 21-fold self-application
+-in four of five seeds.
++Four of five seeds retain at least 0.9996 recovery through 21-fold
++self-application of the trained operator.
+ % <!-- evidence: R3 -->
+-An entity-subspace decomposition supplies the mechanism, restricted rank
+-exactly $K$ on the key subspace,
++On the entity subspace, the learned operator has effective rank close
++to $K$ and approximates the ideal cycle.
+ % <!-- evidence: R5 -->
+-and in the single converged rank-starved seed, the depth-decay curve is
+-predicted from its eigenspectrum alone.
++For the single converged seed capped below $K$, the eigenspectrum
++predicts the measured cosine within 0.008 through seven applications.
+ % <!-- evidence: R4 -->
++Extending training resolves several initial failures, but recovery still
++declines at larger matrix dimensions with encoder width fixed.
++% <!-- evidence: R8 -->
++% <!-- evidence: R7 -->
+ \end{abstract}
+ 
+ \noindent\textbf{Keywords:} effective rank, fast weights, associative
+--- arxiv-v1/sections/01_intro.tex
++++ arxiv-v2/sections/01_intro.tex
+@@ -1,25 +1,25 @@
+ \section{Introduction}
+ \label{sec:intro}
+ 
+-Matrix-valued latents, in continuous chain-of-thought models
+-\citep{hao2024coconut} and fast-weight architectures broadly
+-\citep{schlag2021linear}, carry a structural observable a vector does
+-not have: the \emph{rank} of the state, which should track how many
+-items the state holds and, when constrained below what the task needs,
+-destroy performance.
+-A recent negative result tested this on a matrix-CODI model (a
+-$d \times d$ latent bolted onto a vector-pretrained GPT-2) and found
+-rank-$k$ truncation curves flat across four training regimes and four
+-readouts \citep{larson2026gradient}; its own stated confound is that
+-ProsQA admits a rank-1 solution, so flatness says nothing about tasks
+-that provably require rank. We close the confound: matrix-native
+-models trained from scratch on tasks whose exact solutions carry a
+-provable $\rank(Z) \geq K$ lower bound, under a readout and
+-architecture built so nothing short of genuine rank recruitment can
+-pass. The contributions: the \emph{teeth} that keep the
+-bound a necessity result (\S\ref{sec:setup}); recruitment of rank
+-tracking $K$ and its causal necessity under train-time caps
+-(\S\ref{sec:recruit}); exact composition to depth 21, its
+-invariant-subspace mechanism, and the depth-amplification signature
+-(\S\ref{sec:compose}); and an exactness
+-frontier in $d$ with a budget-extension rule (\S\ref{sec:frontier}).
++Matrix-valued states appear in fast-weight architectures
++\citep{schlag2021linear} and extensions of continuous chain-of-thought
++models \citep{hao2024coconut}. Their rank describes the dimension of the
++image of the linear transformation they represent. Does training learn
++the rank needed for a task, and does restricting that rank impair
++performance?
++
++A recent study added a $d \times d$ matrix latent to a vector-pretrained
++GPT-2 reasoner and found flat rank-$k$ truncation curves across four
++training regimes and four readouts \citep{larson2026gradient}. The study
++identified a limitation: its ProsQA task admits a rank-1 solution.
++That result therefore does not establish how training behaves when
++exact recovery requires higher rank.
++
++We study models trained from scratch on tasks whose exact linear
++solutions require $\rank(Z) \geq K$. A fixed readout and a single matrix
++state isolate the role of rank (\S\ref{sec:setup}). We measure the rank
++learned during training and the effect of training-time rank caps
++(\S\ref{sec:recruit}). We then test repeated application of the learned
++operator, analyze its action on the entity subspace
++(\S\ref{sec:compose}), and examine recovery at larger matrix dimensions
++and longer training budgets (\S\ref{sec:frontier}).
+--- arxiv-v1/sections/02_setup.tex
++++ arxiv-v2/sections/02_setup.tex
+@@ -1,42 +1,49 @@
+-\section{The Bound and the Teeth That Keep It a Bound}
++\section{Task, Rank Requirement, and Experimental Controls}
+ \label{sec:setup}
+ 
+-\textbf{Task and bound.} Each episode presents $K$ key$\to$value
+-bindings, then queries one; keys and values are fresh per episode
+-(Gaussian, normalized, or exactly orthonormal following
+-\citealp{mezzadri2007random}), so evaluation uses never-seen bindings. Exact recovery $Z k_j = v_j$
+-for $K$ bindings with linearly independent keys and values forces
+-$Z \Kmat = \Vmat$, hence the classical bound
+-$K = \rank(\Vmat) = \rank(Z \Kmat) \leq \rank(Z)$
+-\citep{kohonen1972correlation,anderson1972simple}. We measure whether a
+-trained, bottlenecked model \emph{discovers} this rank under plain SGD,
+-and whether it is causally load-bearing.
++\textbf{Task and rank requirement.} Each episode presents $K$
++key--value pairs, then queries one key. Keys and values are sampled
++anew for each episode (Gaussian, normalized, or exactly orthonormal
++following \citealp{mezzadri2007random}), so evaluation uses new
++bindings. Write the keys and values as the columns of $\Kmat$ and
++$\Vmat$. Exact recovery, $Z k_j = v_j$ for all $K$ bindings with
++linearly independent keys and values, requires $Z \Kmat = \Vmat$.
++The classical rank inequality then gives
++\[
++K = \rank(\Vmat) = \rank(Z \Kmat) \leq \rank(Z)
++\]
++\citep{kohonen1972correlation,anderson1972simple}.
++We test whether training with Adam learns the required rank and how
++restricting rank affects recovery.
+ 
+-\textbf{Tooth 1: exact continuous recovery, never argmax.}
++\textbf{Fixed linear readout.}
+ \citet{nichani2025factual} construct a rank-$m$ linear memory storing
+ approximately $md$ associations under interference-tolerant argmax
+-decoding; under that rule a rank-1 state passes at every $K$ we test
+-and the bound collapses. We therefore pin the decoder to the linear
+-unbind itself, $\mathrm{pred} = Z \cdot k_j$, scored by an absolute bar
+-($\recninety$: the fraction of queries with $\cos > 0.9$), never an
+-argmax and never a learned readout that could launder rank.
++decoding. The exact-recovery rank requirement above does not apply to
++that decoding rule. Here, the prediction is the vector $Z k_j$, with
++no argmax or learned readout. Training minimizes one minus cosine
++similarity. We report $\recninety$, the fraction of queries with
++cosine similarity greater than 0.9. This threshold measures approximate
++recovery; it does not require $Z k_j = v_j$ exactly.
+ 
+-\textbf{Tooth 2: a single-state bottleneck, verified behaviorally.}
+-``Hold $K$ items'' is satisfiable in full attention by attending to
+-$K$ raw-input positions at rank~1 each, so all information
+-funnels through one $d \times d$ state and the decoder is a pure
+-function of $(Z, \mathrm{query})$: after the encoder writes $Z$, the
+-raw-input cache is corrupted and the decode is confirmed bit-for-bit
+-unchanged (a gradient blank-out test, not a mask-shape check).
++\textbf{Single-state bottleneck.}
++A full-attention decoder could retrieve individual bindings from
++separate input positions. To prevent this, the decoder reads only
++$(Z, \mathrm{query})$, where $Z$ is one $d \times d$ state. After the
++encoder writes $Z$, we corrupt the raw-input cache and confirm that
++the decoder output is bit-for-bit unchanged.
+ % <!-- evidence: R10 -->
+ 
+-\textbf{Model and controls.} A Transformer encoder over the binding
+-tokens, with $d$ learned row-reader latents producing the rows of
+-$Z \in \R^{d \times d}$: permutation-invariant, able to express any
+-rank up to $d$, and not hard-coding $\sum_j v_j k_j^\top$. Every model
+-is under 1M parameters (the $d = 16$ composition model: 170{,}896).
++\textbf{Model and rank controls.} A Transformer encoder processes the
++binding tokens. It uses $d$ learned row-reader latents to produce the
++rows of $Z \in \R^{d \times d}$. The mapping is permutation-invariant,
++can express rank up to $d$, and does not hard-code
++$\sum_j v_j k_j^\top$. Every model has fewer than 1M parameters; the
++$d = 16$ composition model has 170{,}896.
+ % <!-- evidence: R9 -->
+-Effective rank (entropy of the normalized singular-value spectrum) is
+-the pre-registered primary metric; the primary causal control
+-constrains $Z$ to rank $k$ at \emph{every training step} (spectral
+-projection), not post hoc.
++Effective rank, the exponential of the entropy of the normalized
++singular-value spectrum, is the pre-registered primary metric.
++In the causal control, spectral projection restricts $Z$ to rank at
++most $k$ at every training step, with backpropagation through the
++projection. The restriction is therefore part of training, rather
++than an intervention applied only after training.
+--- arxiv-v1/sections/03_recruitment.tex
++++ arxiv-v2/sections/03_recruitment.tex
+@@ -1,36 +1,38 @@
+-\section{Rank Tracks $K$ and Is Causally Necessary}
++\section{Learned Rank and the Effect of Rank Caps}
+ \label{sec:recruit}
+ 
+-\textbf{Recruitment.} Without any rank term in the loss, the trained
+-$d{=}16$ state's effective rank rises one-for-one
+-with binding count across a ten-point grid from $K{=}1$ to $K{=}16$
+-(Spearman $\rho = 1.0$; 2.42 at $K{=}1$, 8.20 at $K{=}8$, 15.09 at
+-$K{=}16$), leaving the pre-registered $[0.7K, 1.3K]$ band only at
+-$K \leq 3$, by overshoot; beyond $K = d$ rank saturates and declines.
++\textbf{Learned rank.} Without a rank penalty in the loss, effective
++rank increases monotonically with binding count on the ten-point
++$d{=}16$ grid from $K{=}1$ to $K{=}16$ (Spearman $\rho = 1.0$).
++It is 2.42 at $K{=}1$, 8.20 at $K{=}8$, and 15.09 at $K{=}16$.
++It exceeds the pre-registered $[0.7K, 1.3K]$ band at $K \leq 3$
++and lies within the band at the other tested points. Beyond $K = d$,
++effective rank saturates and then declines.
+ % <!-- evidence: R1 -->
+-A subsequent, larger replication sweep is directionally identical.
++A subsequent, larger replication sweep shows the same overall pattern.
+ % <!-- evidence: R1b -->
+ 
+-\begin{figure}[t]
++\begin{figure}[htbp]
+ \centering
+-\includegraphics[width=0.92\textwidth]{fig_forcerank.pdf}
+-\caption{The primary, pre-registered causal test: $\recninety$ under
+-train-time force-rank $k$, regenerated from the archived sweep (dashed
+-line at $k = K$). The step lands at $k \approx K$ in every cell whose
+-unconstrained model reaches exact recovery.}
++\includegraphics[width=\textwidth]{fig_forcerank.pdf}
++\caption{Recovery under training-time rank caps in the pre-registered
++causal test. $\recninety$ is the fraction of queries with cosine
++similarity greater than 0.9; the dashed line marks $k = K$.
++The archived sweep shows recovery increasing near $k = K$, with a
++more gradual transition for $d{=}16$, $K{=}12$.}
+ % <!-- evidence: R2 -->
+ \label{fig:forcerank}
+ \end{figure}
+ 
+-\textbf{Causal necessity.} Training with $Z$ constrained to rank $k$
+-throughout (Figure~\ref{fig:forcerank}): at $d{=}8, K{=}4$
+-the step is exact, $k \leq 3$ yields $\recninety \leq 0.0004$ and
+-$k = 4$ yields 0.97, a discontinuity at the provable bound.
++\textbf{Training-time rank caps.} At $d{=}8, K{=}4$, training with
++rank cap $k \leq 3$ yields $\recninety \leq 0.0004$, while $k = 4$
++yields 0.97 (Figure~\ref{fig:forcerank}). The observed transition
++occurs at the rank required for exact recovery.
+ % <!-- evidence: R2 -->
+-The $d{=}16$ cells show the same knee near $k \approx K$ with mild
+-post-knee non-monotonicity from seed noise; the replication resolves
+-the $K{=}12$ transition into a ragged ramp, not a clean step.
++The $d{=}16$ configurations also show a transition near $k = K$,
++with some non-monotonic variation above it. In the replication, the
++$K{=}12$ transition is a gradual, irregular rise rather than a step.
+ % <!-- evidence: R2b -->
+-The two halves answer \citet{larson2026gradient}: the earlier
+-rank-blindness was a property of a rank-1-solvable task, not of the
+-gradient.
++These results show that gradient-based training can learn and use
++higher rank in this setting. The flat curves in
++\citet{larson2026gradient} do not imply a general inability to do so.
+--- arxiv-v1/sections/04_composition.tex
++++ arxiv-v2/sections/04_composition.tex
+@@ -1,63 +1,65 @@
+-\section{Exact Composition and the Invariant-Subspace Mechanism}
++\section{Composition and the Entity Subspace}
+ \label{sec:compose}
+ 
+-Binding is a single lookup; the composition variant relates the $K$
+-entities by one Hamiltonian $K$-cycle $\pi$, so a hop-depth-$h$ query
+-means recovering $v_{\pi^h(i)}$ by $h$-fold self-application of the
+-same trained operator, $Z^h k_i$, with no learned per-hop parameters.
+-Training sees hops $\{1, 2, 3\}$; evaluation adds held-out
+-$\{4, 5, 6\}$ and probes $\{7, 21\}$ ($d = 16$, $K = 8$, orthonormal
+-keys). A single full cycle is load-bearing: under a general random
+-permutation, nominally held-out depths collapse into trivial or
+-in-distribution queries modulo its short cycle lengths
+-(Appendix~\ref{app:period}).
++The composition task arranges $K$ entities in one cycle $\pi$.
++The entities are represented by orthonormal vectors $e_1,\ldots,e_K$.
++The one-step binding
++is $k_i=e_i$, $v_i=e_{\pi(i)}$, so the output uses the same vector
++space as the next input. A query at depth $h$ asks for $e_{\pi^h(i)}$,
++obtained by applying the same trained operator $h$ times: $Z^h e_i$.
++There are no learned
++per-hop parameters. Training uses depths $\{1, 2, 3\}$; evaluation
++adds $\{4, 5, 6\}$ and probes $\{7, 21\}$ ($d = 16$, $K = 8$,
++orthonormal keys). A single full cycle avoids the shorter cycles of
++a general random permutation, which can turn nominally held-out
++depths into identity or training queries. Depth 21 has the same
++target as depth 5 in an 8-cycle; it tests stability under additional
++applications (Appendix~\ref{app:period}).
+ 
+-\textbf{Exact composition.} 4/5 unconstrained seeds reach
+-$\recninety \geq 0.9996$ at every tested hop (3/5 at 1.000 throughout);
+-the fifth is still transitioning at budget, decaying from 0.93
+-($h{=}1$) to 0.16 ($h{=}7$) and 0.0001 ($h{=}21$).
++\textbf{Recovery across depths.} Four of five unconstrained seeds
++reach $\recninety \geq 0.9996$ at every tested depth; three reach
++1.000 throughout. At the training budget, the fifth seed reaches
++0.93 at $h{=}1$, falling to 0.16 at $h{=}7$ and 0.0001 at $h{=}21$.
+ % <!-- evidence: R3 -->
+ 
+-\begin{figure}[t]
++\begin{figure}[htbp]
+ \centering
+-\includegraphics[width=0.92\textwidth]{fig_depth.pdf}
+-\caption{Depth as a spectral-exactness amplifier ($d{=}16$, $K{=}8$).
+-\emph{Left:} mean cosine for the converged force-rank $k{=}7{=}K{-}1$
+-seed against the eigenspectrum-only prediction (no raw keys).
+-\emph{Right:} $\recninety$ by hop for the four converged
+-rank-sufficient seeds (flat at 1.0), the rank-starved operator, and the
+-still-transitioning seed.}
++\includegraphics[width=\textwidth]{fig_depth.pdf}
++\caption{Recovery under repeated application of the learned matrix
++($d{=}16$, $K{=}8$). \emph{Left:} mean cosine for the converged seed
++with rank cap $k{=}7{=}K{-}1$, compared with the prediction from its
++eigenspectrum alone. \emph{Right:} the fraction of queries with
++cosine greater than 0.9, averaged over the four converged
++unconstrained seeds (near 1.0), and shown separately for the
++rank-capped seed and the fifth unconstrained seed.}
+ % <!-- evidence: R4 -->
+ % <!-- evidence: R3 -->
+ \label{fig:depth}
+ \end{figure}
+ 
+-\textbf{Depth amplification.} At force-rank $k = K - 1$ (provably
+-insufficient), the one converged seed passes shallow hops at mean
+-cosine 0.92--0.93 ($h \leq 5$), above the 0.9 bar, and collapses only
+-under depth (Figure~\ref{fig:depth}): $\recninety$ falls 0.996 $\to$
+-0.881 $\to$ 0.060 at $h = 1/7/21$.
++\textbf{Error accumulation.} With rank cap $k = K - 1$, exact linear
++recovery is impossible. Nevertheless, the one converged seed reaches
++mean cosine 0.92--0.93 at shallow depths ($h \leq 5$).
++Its $\recninety$ falls from 0.996 at $h = 1$ to 0.881 at $h = 7$
++and 0.060 at $h = 21$ (Figure~\ref{fig:depth}).
+ % <!-- evidence: R4 -->
+-The mechanism is spectral and predictable: from the operator's
+-eigenspectrum alone, predicted cosine matches the measured curve within
++The operator's eigenspectrum alone predicts measured cosine within
+ 0.008 through $h = 7$ (Table~\ref{tab:depthcurve}).
+ % <!-- evidence: R4 -->
+ 
+-
+-\textbf{The invariant-subspace mechanism.} Whole-matrix effective rank
+-of the converged solutions reads the full ambient dimension (16.0 of
+-$d{=}16$; stable rank 14.6--15.6); the whole-matrix number is the wrong
+-instrument.
++\textbf{Action on the entity subspace.} The converged solutions have
++whole-matrix effective rank 16.0 at $d{=}16$ and stable rank
++14.6--15.6. These whole-matrix measures include components outside
++the subspace used by the task.
+ % <!-- evidence: R5 -->
+-Block-decomposing the trained $Z$ against the ideal cycle's
+-$K$-dimensional entity subspace $\mathcal{E}$: the restricted operator
+-has effective rank 7.999--8.000 (maximum 8), matching the ideal scaled
+-cycle to a scale-corrected residual of 0.7--2.4\%; leakage out of
+-$\mathcal{E}$ is below 1.5\% of the state norm; the complement block is
+-full-rank and non-contractive yet dynamically invisible: a query
+-starting in $\mathcal{E}$ never leaves it (Table~\ref{tab:subspace},
+-Appendix~\ref{app:subspace}).
++We therefore decompose $Z$ into blocks relative to the ideal cycle's
++$K$-dimensional entity subspace $\mathcal{E}$. The block acting within
++$\mathcal{E}$ has effective rank 7.999--8.000 (maximum 8) and a
++scale-corrected residual of 0.7--2.4\% from the ideal cycle. Leakage
++out of $\mathcal{E}$ is below 1.5\% of the state norm. The complement
++block is full-rank and non-contractive
++(Table~\ref{tab:subspace}, Appendix~\ref{app:subspace}).
+ % <!-- evidence: R5 -->
+-Restricted to the subspace the task uses, ``rank tracks $K$'' holds
+-exactly; dead force-rank seeds fail the same restricted test, so their
+-collapse is real.
++These measurements support an approximately invariant entity
++subspace on which effective rank is close to $K$. Rank-capped seeds
++that fail recovery also fail the corresponding subspace test.
+--- arxiv-v1/sections/05_frontier.tex
++++ arxiv-v2/sections/05_frontier.tex
+@@ -1,36 +1,40 @@
+-\section{The Exactness Frontier, and When to Trust a Dead Cell}
++\section{Training Budget and Recovery at Larger Dimensions}
+ \label{sec:frontier}
+ 
+-\textbf{Budget reversals.} Three independent axes each declared a cell
+-dead at its first step budget before an extension reversed the verdict:
+-composition at $K{=}8$ (1/5 seeds converged at 20K steps; 4/5 at 40K),
++\textbf{Longer training.} Several configurations that failed at their
++initial training budget succeeded with more steps. For composition
++at $K{=}8$, one of five seeds converged at 20K steps and four of five
++at 40K.
+ % <!-- evidence: R8 -->
+-composition at $K \in \{12, 16\}$ (0/5 at 40K; 3/3 and 2/3 fresh seeds
+-at 80K),
++At $K \in \{12, 16\}$, none of five seeds converged at 40K; at 80K,
++three of three and two of three fresh seeds converged, respectively.
+ % <!-- evidence: R6 -->
+-and $d$-scaling (an 8K-budget wall at $d \geq 32$ dissolving at 20K,
+-onset 6--16K).
++In the dimension sweep, configurations at $d \geq 32$ failed at an
++8K-step budget but began learning at 6--16K steps when training was
++extended to 20K.
+ % <!-- evidence: R8 -->
+-The rule, \emph{a cell is not dead until re-tested at 2--2.5$\times$
+-budget},
++These reversals motivate re-testing unsuccessful configurations at
++2--2.5$\times$ the initial budget before drawing conclusions about
++trainability.
+ % <!-- evidence: R8 -->
+-is necessary but not sufficient: $K{=}16$'s remaining stuck
+-seed stayed dead through 120K steps,
++An extension does not guarantee recovery: the remaining unsuccessful
++$K{=}16$ seed still failed at 120K steps,
+ % <!-- evidence: R6 -->
+-and the $d{=}32$ cells below plateau flat yet still fail the
+-pre-registered bar.
++and the $d{=}32$ configurations below plateaued below the
++pre-registered success threshold.
+ % <!-- evidence: R8 -->
+ 
+-\textbf{The frontier that survives} is not a trainability wall but an
+-\emph{exactness} frontier. Fixing $K = d/4$ at encoder width $h = 64$
+-(every cell confirmed flat before being read as converged), mean
+-recovery cosine falls monotonically across $d$:
+-0.877/0.909/0.915 at $d{=}32$ (three
+-seeds, 100K steps), 0.7196 at $d{=}48$ (100K), and 0.3882 at $d{=}64$
+-(150K); the exact-match metric is harsher, with $\recninety$
+-0.413/0.632/0.653 at $d{=}32$ (all below the pre-registered 0.7 pass
+-bar), 0.002 at $d{=}48$, and 0.0 at $d{=}64$.
++\Needspace{9\baselineskip}
++\textbf{Recovery at larger dimensions.} With $K = d/4$ and encoder
++width fixed at 64, mean recovery cosine declines as $d$ increases.
++All reported runs had plateaued: at $d{=}32$, three seeds reached
++0.877/0.909/0.915 after 100K steps; at $d{=}48$, one seed reached
++0.7196 after 100K; at $d{=}64$, one seed reached 0.3882 after 150K.
++Their $\recninety$ scores were 0.413/0.632/0.653 at $d{=}32$
++(all below the pre-registered 0.7 success threshold), 0.002 at
++$d{=}48$, and 0.0 at $d{=}64$.
+ % <!-- evidence: R7 -->
+-Rank recruitment and exactness separate: at $d{=}32$ recruited rank
+-reaches 91--97\% of target while exact recovery stalls below the bar.
++At $d{=}32$, learned effective rank reaches 91--97\% of the target,
++but recovery remains below the success threshold. High effective rank
++alone does not ensure accurate bindings.
+ % <!-- evidence: R7 -->
+--- arxiv-v1/sections/06_related.tex
++++ arxiv-v2/sections/06_related.tex
+@@ -1,38 +1,42 @@
+-\section{Related Work, Limitations, and Outlook}
++\section{Related Work and Limitations}
+ \label{sec:related}
+ 
+-\citet{nichani2025factual} is the nearest neighbor: a hand-built
+-existence construction under interference-tolerant argmax decoding;
+-this work pins the readout so that construction cannot pass, then
+-measures and intervenes on the rank SGD recruits
+-(\citealp{barnfield2026sharp} give static-memory thresholds).
+-\citet{nazari2026rank} and \citet{sun2026staterank} measure
+-effective-rank dynamics in pretrained linear-attention models
+-observationally (an \emph{upper} bound $\rank(S_t) \leq t$); here the
+-write count is controlled and necessity is causal. \citet{mishra2026m2rnn} train matrix-state RNNs on $S_3$ with no rank
+-measurement or intervention (their own vector-state control matches);
+-\citet{grazzi2025negative} and \citet{siems2025deltaproduct} (the
+-Householder extension of \citealp{yang2024deltanet}) characterize the
+-per-token \emph{transition} operator, not the trained \emph{state's}
+-own rank, the quantity here. Continuous-CoT capacity
+-results are existence constructions, not measurements
+-\citep{zhu2025superposition,gozeten2025cot2}; the
+-compositional-generalization caution
+-\citep{dziri2023faithfate,wang2024grokked} is met with an exact
+-eigenstructure match.
++\citet{nichani2025factual} construct linear memories under
++interference-tolerant argmax decoding, and \citet{barnfield2026sharp}
++derive static-memory thresholds. Here, the readout is fixed to the
++matrix--vector product, and we measure and restrict the rank learned
++during training. \citet{nazari2026rank} and \citet{sun2026staterank}
++study effective-rank dynamics in pretrained linear-attention models
++observationally, including the upper bound $\rank(S_t) \leq t$.
++Our experiments control the number of bindings and impose rank caps
++during training.
+ 
+-\textbf{Limitations.} Every experiment is synthetic and under 1M
+-parameters; generality at scale, and across state-writing architectures
+-(recurrent fast-weight, attention-readout, associative-memory), is
+-untested.
++\citet{mishra2026m2rnn} train matrix-state RNNs on $S_3$ without rank
++measurement or intervention; their vector-state control matches
++performance. \citet{grazzi2025negative} and
++\citet{siems2025deltaproduct}, the latter extending
++\citet{yang2024deltanet} with Householder products, characterize the
++per-token transition operator. We instead study the rank of the
++trained memory state. Continuous-CoT capacity results give existence
++constructions \citep{zhu2025superposition,gozeten2025cot2}. Work on
++compositional generalization
++\citep{dziri2023faithfate,wang2024grokked} motivates examining the
++learned operator as well as its recovery scores.
++
++\textbf{Limitations.} Every experiment is synthetic and uses fewer
++than 1M parameters. Generality at scale and across state-writing
++architectures, including recurrent fast-weight, attention-readout,
++and associative-memory models, remains untested.
+ % <!-- evidence: R9 -->
+-The depth-amplification contrast rests on the single converged
+-force-rank-$(K{-}1)$ seed; the other two at that cell collapsed under
+-a documented numerical instability in the spectral-projection backward
+-pass, so it is a case study consistent with the spectral prediction,
+-not an $n{>}1$ mechanism; the $d \geq 48$ frontier cells rest on
+-single seeds. The registered falsifiers stand
+-(Appendix~\ref{app:repro}). A companion paper \citep{larson2026ranklaw}
+-(group-composition state tracking) shares no figures or tables with
+-this one; it inherits the binding instrument by citation and makes a
+-group-dimension rank law this paper does not.
++The comparison between spectral prediction and recovery across depths
++rests on one converged seed with rank cap $K{-}1$. The other two
++seeds in that configuration failed under a documented numerical
++instability in the spectral-projection backward pass. This is a
++single-seed case study, and the $d \geq 48$ results also use single
++seeds. Appendix~\ref{app:repro} lists the pre-registered criteria
++for challenging the empirical conclusions.
++
++A companion paper on group-composition state tracking
++\citep{larson2026ranklaw} uses the binding setup by citation. It shares
++no figures or tables with this paper and studies a group-dimension
++rank law beyond the scope of the present experiments.
+--- arxiv-v1/sections/07_limitations.tex
++++ arxiv-v2/sections/07_limitations.tex
+@@ -3,22 +3,20 @@
+ \section{Depth 21 Under the Single $K$-Cycle}
+ \label{app:period}
+ 
+-Under a single 8-cycle, $\pi^{21} = \pi^{21 \bmod 8} = \pi^{5}$, so the
+-nominal depth-21 probe shares its \emph{target} with the already-tested
+-depth 5; the two are not distinct group-theoretic queries. What depth 21
+-measures is numerical stability under 21 sequential self-applications of
+-the trained operator. In the four converged seeds $\recninety$ reads
+-$\geq 0.9996$ at both $h{=}5$ and $h{=}21$, so repeated self-application
+-does not amplify their residual error;
++Under a single 8-cycle, $\pi^{21} = \pi^{21 \bmod 8} = \pi^{5}$.
++Depth 21 therefore shares its target with depth 5; the two are not
++distinct group-theoretic queries. The depth-21 probe measures
++stability under 21 sequential applications of the trained operator.
++In the four converged seeds, $\recninety \geq 0.9996$ at both depths,
++so the additional applications preserve the high recovered fraction.
+ % <!-- evidence: R3 -->
+-in the rank-starved operator the same 16 additional applications
+-compound a passing shallow-hop cosine into collapse (0.947 at $h{=}5$
+-to 0.060 at $h{=}21$ in recovered fraction),
++For the rank-capped operator, the recovered fraction falls from
++0.947 at $h{=}5$ to 0.060 at $h{=}21$.
+ % <!-- evidence: R4 -->
+-which is exactly the amplification claim of \S\ref{sec:compose}, not a
+-generalization claim to unseen permutation targets.
++This comparison tests error accumulation, rather than generalization
++to an unseen permutation target.
+ 
+-\begin{table}[!htb]
++\begin{table}[H]
+ \centering
+ \small
+ \begin{tabular}{cccc}
+@@ -32,20 +30,21 @@
+ 21 & 0.7536 & 0.8206 & 0.060 \\
+ \bottomrule
+ \end{tabular}
+-\caption{The rank-starved ($k = 7 = K - 1$) operator's depth-decay
+-curve: cosine predicted from the trained operator's own eigenspectrum
+-(no raw keys) against the measured values, with the recovered fraction
+-alongside. Every hop through $h = 7$ matches within 0.008; at $h = 21$
+-the per-item distribution widens and the exact-match metric collapses
+-while mean cosine moves little.}
++\caption{Recovery across depths for the operator with $d=16$, $K=8$,
++and rank cap $k = 7 = K - 1$. Cosine predicted from the learned eigenspectrum
++(without raw keys) is compared with measured mean cosine and the
++fraction of queries with cosine greater than 0.9. Prediction error
++is below 0.008 through $h = 7$. At $h = 21$, mean cosine remains
++0.8206, but only 0.060 of queries exceed the recovery threshold.}
+ % <!-- evidence: R4 -->
+ \label{tab:depthcurve}
+ \end{table}
+ 
++\Needspace{24\baselineskip}
+ \section{Per-Seed Subspace Decomposition}
+ \label{app:subspace}
+ 
+-\begin{table}[!htb]
++\begin{table}[H]
+ \centering
+ \small
+ \begin{tabular}{lccccc}
+@@ -58,15 +57,16 @@
+ s4 & 7.999 & 2.4\% & 1.45\% & 7.999 & 1.02 \\
+ \bottomrule
+ \end{tabular}
+-\caption{Entity-subspace block decomposition of the four converged
+-$K{=}8$ composition seeds (means over four evaluation episodes),
+-recomputed from the archived $Z$-dumps. $A$ is the operator restricted
+-to the $K$-dimensional entity subspace; residual is the scale-corrected
+-Frobenius distance to the ideal cycle after fitting the single isotropic
+-scale that cosine scoring cannot see; leakage is the cross-block norm
+-$\|C\|$ as a fraction of $\|Z\|$; $D$ is the complement block, full-rank
+-and non-contractive ($\rho(D) \geq 1$) yet never visited by a query
+-trajectory that starts in the entity subspace.}
++\caption{Entity-subspace decomposition of four converged $d{=}16$, $K{=}8$
++composition seeds, recomputed from archived matrices and averaged
++over four evaluation episodes. $A$ acts within the entity subspace.
++Residual is the scale-corrected Frobenius distance to the ideal cycle,
++after fitting the isotropic scale that cosine scoring does not
++measure. Leakage is the cross-block norm $\|C\|$ as a fraction of
++$\|Z\|$. $D$ acts within the complementary subspace;
++$\rho(D)$ is its spectral radius. The complement is full-rank and
++non-contractive, while the measured cross-block leakage is small
++but nonzero.}
+ % <!-- evidence: R5 -->
+ \label{tab:subspace}
+ \end{table}
+@@ -74,26 +74,30 @@
+ \section{Reproducibility}
+ \label{app:repro}
+ 
+-Training, evaluation, and analysis code and md5-pinned raw artifacts
+-accompany the repository release. Raw
+-per-run JSON archives (dense training-step checkpoints, not summary
+-rollups) back every number in this paper; each figure regenerates
+-from those archives through a single versioned script that asserts an
+-md5 checksum for every source file it loads, so a changed artifact fails
+-the build rather than silently plotting stale data. Hypotheses, metrics,
+-force-rank controls, and decision bands were registered in design
+-documents before training, and every deviation (one metric
+-re-registration, logged before the affected sweep) is recorded inline
+-in those documents. The registered falsifiers stand open:
+-force-rank-$(K{-}1)$ at $\geq 0.9\times$ ceiling at multiple $(d, K)$
+-points, or a $d \geq 32$ cell clearing the 0.7 bar, would overturn the
+-causal claim.
+-The force-rank staircase aggregate retains one recovery figure per
+-$(d, K, k)$ cell, not per-seed instability diagnostics; the necessity
+-direction (recovery $\approx 0$ below $K$) is robust to the cause of
+-any individual sub-$K$ collapse, while the smoothness of the post-knee
+-approach should be read at the aggregate level only.
+-The analysis pipeline emits benign BLAS \texttt{RuntimeWarning}s from
+-near-singular intermediate products on some platforms; every
+-decomposition output is asserted finite before use, so these do not
+-affect any reported number.
++Training, evaluation, and analysis code and raw artifacts with
++recorded MD5 checksums accompany the repository release. Per-run
++JSON archives, including intermediate training checkpoints, support
++the reported numbers. A versioned script regenerates each figure
++and verifies the checksum of every source file it loads. Hypotheses,
++metrics, rank controls, and decision bands were registered in design
++documents before training. One metric was re-registered before the
++affected sweep; that deviation is recorded in those documents.
++
++The pre-registered criteria for challenging the empirical conclusions
++remain open: a rank cap of $K{-}1$ achieving at least
++$0.9\times$ the converged unconstrained model's recovery at multiple
++$(d, K)$ points, or a $d \geq 32$ configuration clearing the 0.7 recovery
++threshold. These criteria concern measured recovery under the
++experimental conditions, not the algebraic requirement for exact
++linear recovery.
++
++The rank-cap sweep aggregate retains one recovery value per
++$(d, K, k)$ configuration, without per-seed instability diagnostics.
++It therefore describes the observed recovery transition but cannot
++separate representational limits from numerical training failures
++in individual runs. Variation above the transition should likewise
++be interpreted at the aggregate level.
++
++On some platforms, the analysis pipeline emits BLAS
++\texttt{RuntimeWarning}s for near-singular intermediate products.
++Every decomposition output is checked for finiteness before use.

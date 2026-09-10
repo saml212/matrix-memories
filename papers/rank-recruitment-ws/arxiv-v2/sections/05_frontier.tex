@@ -1,0 +1,40 @@
+\section{Training Budget and Recovery at Larger Dimensions}
+\label{sec:frontier}
+
+\textbf{Longer training.} Several configurations that failed at their
+initial training budget succeeded with more steps. For composition
+at $K{=}8$, one of five seeds converged at 20K steps and four of five
+at 40K.
+% <!-- evidence: R8 -->
+At $K \in \{12, 16\}$, none of five seeds converged at 40K; at 80K,
+three of three and two of three fresh seeds converged, respectively.
+% <!-- evidence: R6 -->
+In the dimension sweep, configurations at $d \geq 32$ failed at an
+8K-step budget but began learning at 6--16K steps when training was
+extended to 20K.
+% <!-- evidence: R8 -->
+These reversals motivate re-testing unsuccessful configurations at
+2--2.5$\times$ the initial budget before drawing conclusions about
+trainability.
+% <!-- evidence: R8 -->
+An extension does not guarantee recovery: the remaining unsuccessful
+$K{=}16$ seed still failed at 120K steps,
+% <!-- evidence: R6 -->
+and the $d{=}32$ configurations below plateaued below the
+pre-registered success threshold.
+% <!-- evidence: R8 -->
+
+\Needspace{9\baselineskip}
+\textbf{Recovery at larger dimensions.} With $K = d/4$ and encoder
+width fixed at 64, mean recovery cosine declines as $d$ increases.
+All reported runs had plateaued: at $d{=}32$, three seeds reached
+0.877/0.909/0.915 after 100K steps; at $d{=}48$, one seed reached
+0.7196 after 100K; at $d{=}64$, one seed reached 0.3882 after 150K.
+Their $\recninety$ scores were 0.413/0.632/0.653 at $d{=}32$
+(all below the pre-registered 0.7 success threshold), 0.002 at
+$d{=}48$, and 0.0 at $d{=}64$.
+% <!-- evidence: R7 -->
+At $d{=}32$, learned effective rank reaches 91--97\% of the target,
+but recovery remains below the success threshold. High effective rank
+alone does not ensure accurate bindings.
+% <!-- evidence: R7 -->

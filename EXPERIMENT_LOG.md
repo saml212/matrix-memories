@@ -12153,3 +12153,8 @@ Mistake: fleet_launch.sh exported HF_HOME/VLLM_USE_FLASHINFER_SAMPLER/PATH and t
 Correction: fleet_launch2.sh prefixes each tmux command with the export line; all three servers came up in 230 s.
 
 ## 2026-09-05 #1 — BREV BOX DELETED (paper agent, ~14:40 PDT). Sam signed in to the Brev console on the Air; the agent opened youthful-indigo-turkey (ukptqsu65, 8×H100, GCP asia-southeast1-c, created 2026-07-01, $22.75/hr), typed the name into the confirm box and clicked Delete; the console went to Terminating at $0.00/hr within a minute. Pre-delete state: all GPUs 0 MiB, no processes, queue empty; every archive in git + SSD + HF, the humor last-evening artifacts on the mini. The Brev CLI on the mini was logged out (browser login required), so the console was the path. Box chapter closed: 66 days of uptime, ~800 queued experiments, the 98M–1.31B family, and the humor fleet re-serve on its last evening.
+
+
+## 2026-09-10 — Rank recruitment companion prose and layout revision
+
+Author-requested prose/spacing work only; no experiments. New working draft `papers/rank-recruitment-ws/arxiv-v2` preserves v1, reported values, and both plotted PDFs. Corrected Adam/exp(entropy) terminology against code; separated exact linear requirements from cosine-threshold measurements; clarified composition notation and numerical-failure scope. Fixed table-caption gaps and appendix flow. Six-page final PDF passed independent prose and all-page render checks. See `arxiv-v2/SCRUB_LOG.md` and `arxiv-v2/review/`. Companion has not been submitted; next step is the author's teaching/read-through review. PDF SHA256: `614e972db6857e00d80b2e4536030e4c6dbb2de9a0c60664b2af721216e45fae`.

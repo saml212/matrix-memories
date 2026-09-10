@@ -1,0 +1,103 @@
+\appendix
+
+\section{Depth 21 Under the Single $K$-Cycle}
+\label{app:period}
+
+Under a single 8-cycle, $\pi^{21} = \pi^{21 \bmod 8} = \pi^{5}$.
+Depth 21 therefore shares its target with depth 5; the two are not
+distinct group-theoretic queries. The depth-21 probe measures
+stability under 21 sequential applications of the trained operator.
+In the four converged seeds, $\recninety \geq 0.9996$ at both depths,
+so the additional applications preserve the high recovered fraction.
+% <!-- evidence: R3 -->
+For the rank-capped operator, the recovered fraction falls from
+0.947 at $h{=}5$ to 0.060 at $h{=}21$.
+% <!-- evidence: R4 -->
+This comparison tests error accumulation, rather than generalization
+to an unseen permutation target.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{cccc}
+\toprule
+$h$ & predicted $\cos$ & measured $\overline{\cos}$ & measured $\recninety$ \\
+\midrule
+1  & 0.9317 & 0.9303 & 0.996 \\
+3  & 0.9258 & 0.9259 & 0.986 \\
+5  & 0.9181 & 0.9212 & 0.947 \\
+7  & 0.9089 & 0.9163 & 0.881 \\
+21 & 0.7536 & 0.8206 & 0.060 \\
+\bottomrule
+\end{tabular}
+\caption{Recovery across depths for the operator with $d=16$, $K=8$,
+and rank cap $k = 7 = K - 1$. Cosine predicted from the learned eigenspectrum
+(without raw keys) is compared with measured mean cosine and the
+fraction of queries with cosine greater than 0.9. Prediction error
+is below 0.008 through $h = 7$. At $h = 21$, mean cosine remains
+0.8206, but only 0.060 of queries exceed the recovery threshold.}
+% <!-- evidence: R4 -->
+\label{tab:depthcurve}
+\end{table}
+
+\Needspace{24\baselineskip}
+\section{Per-Seed Subspace Decomposition}
+\label{app:subspace}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+seed & $\mathrm{effrank}(A)$ & residual & leakage (\% of $\|Z\|$) & $\mathrm{effrank}(D)$ & $\rho(D)$ \\
+\midrule
+s1 & 8.000 & 0.7\% & 0.44\% & 8.000 & 1.38 \\
+s2 & 7.999 & 1.9\% & 1.06\% & 8.000 & 1.27 \\
+s3 & 7.999 & 1.5\% & 0.87\% & 8.000 & 2.86 \\
+s4 & 7.999 & 2.4\% & 1.45\% & 7.999 & 1.02 \\
+\bottomrule
+\end{tabular}
+\caption{Entity-subspace decomposition of four converged $d{=}16$, $K{=}8$
+composition seeds, recomputed from archived matrices and averaged
+over four evaluation episodes. $A$ acts within the entity subspace.
+Residual is the scale-corrected Frobenius distance to the ideal cycle,
+after fitting the isotropic scale that cosine scoring does not
+measure. Leakage is the cross-block norm $\|C\|$ as a fraction of
+$\|Z\|$. $D$ acts within the complementary subspace;
+$\rho(D)$ is its spectral radius. The complement is full-rank and
+non-contractive, while the measured cross-block leakage is small
+but nonzero.}
+% <!-- evidence: R5 -->
+\label{tab:subspace}
+\end{table}
+
+\section{Reproducibility}
+\label{app:repro}
+
+Training, evaluation, and analysis code and raw artifacts with
+recorded MD5 checksums accompany the repository release. Per-run
+JSON archives, including intermediate training checkpoints, support
+the reported numbers. A versioned script regenerates each figure
+and verifies the checksum of every source file it loads. Hypotheses,
+metrics, rank controls, and decision bands were registered in design
+documents before training. One metric was re-registered before the
+affected sweep; that deviation is recorded in those documents.
+
+The pre-registered criteria for challenging the empirical conclusions
+remain open: a rank cap of $K{-}1$ achieving at least
+$0.9\times$ the converged unconstrained model's recovery at multiple
+$(d, K)$ points, or a $d \geq 32$ configuration clearing the 0.7 recovery
+threshold. These criteria concern measured recovery under the
+experimental conditions, not the algebraic requirement for exact
+linear recovery.
+
+The rank-cap sweep aggregate retains one recovery value per
+$(d, K, k)$ configuration, without per-seed instability diagnostics.
+It therefore describes the observed recovery transition but cannot
+separate representational limits from numerical training failures
+in individual runs. Variation above the transition should likewise
+be interpreted at the aggregate level.
+
+On some platforms, the analysis pipeline emits BLAS
+\texttt{RuntimeWarning}s for near-singular intermediate products.
+Every decomposition output is checked for finiteness before use.

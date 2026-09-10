@@ -1,0 +1,42 @@
+\section{Related Work and Limitations}
+\label{sec:related}
+
+\citet{nichani2025factual} construct linear memories under
+interference-tolerant argmax decoding, and \citet{barnfield2026sharp}
+derive static-memory thresholds. Here, the readout is fixed to the
+matrix--vector product, and we measure and restrict the rank learned
+during training. \citet{nazari2026rank} and \citet{sun2026staterank}
+study effective-rank dynamics in pretrained linear-attention models
+observationally, including the upper bound $\rank(S_t) \leq t$.
+Our experiments control the number of bindings and impose rank caps
+during training.
+
+\citet{mishra2026m2rnn} train matrix-state RNNs on $S_3$ without rank
+measurement or intervention; their vector-state control matches
+performance. \citet{grazzi2025negative} and
+\citet{siems2025deltaproduct}, the latter extending
+\citet{yang2024deltanet} with Householder products, characterize the
+per-token transition operator. We instead study the rank of the
+trained memory state. Continuous-CoT capacity results give existence
+constructions \citep{zhu2025superposition,gozeten2025cot2}. Work on
+compositional generalization
+\citep{dziri2023faithfate,wang2024grokked} motivates examining the
+learned operator as well as its recovery scores.
+
+\textbf{Limitations.} Every experiment is synthetic and uses fewer
+than 1M parameters. Generality at scale and across state-writing
+architectures, including recurrent fast-weight, attention-readout,
+and associative-memory models, remains untested.
+% <!-- evidence: R9 -->
+The comparison between spectral prediction and recovery across depths
+rests on one converged seed with rank cap $K{-}1$. The other two
+seeds in that configuration failed under a documented numerical
+instability in the spectral-projection backward pass. This is a
+single-seed case study, and the $d \geq 48$ results also use single
+seeds. Appendix~\ref{app:repro} lists the pre-registered criteria
+for challenging the empirical conclusions.
+
+A companion paper on group-composition state tracking
+\citep{larson2026ranklaw} uses the binding setup by citation. It shares
+no figures or tables with this paper and studies a group-dimension
+rank law beyond the scope of the present experiments.

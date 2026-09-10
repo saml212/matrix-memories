@@ -1,0 +1,38 @@
+\section{Learned Rank and the Effect of Rank Caps}
+\label{sec:recruit}
+
+\textbf{Learned rank.} Without a rank penalty in the loss, effective
+rank increases monotonically with binding count on the ten-point
+$d{=}16$ grid from $K{=}1$ to $K{=}16$ (Spearman $\rho = 1.0$).
+It is 2.42 at $K{=}1$, 8.20 at $K{=}8$, and 15.09 at $K{=}16$.
+It exceeds the pre-registered $[0.7K, 1.3K]$ band at $K \leq 3$
+and lies within the band at the other tested points. Beyond $K = d$,
+effective rank saturates and then declines.
+% <!-- evidence: R1 -->
+A subsequent, larger replication sweep shows the same overall pattern.
+% <!-- evidence: R1b -->
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{fig_forcerank.pdf}
+\caption{Recovery under training-time rank caps in the pre-registered
+causal test. $\recninety$ is the fraction of queries with cosine
+similarity greater than 0.9; the dashed line marks $k = K$.
+The archived sweep shows recovery increasing near $k = K$, with a
+more gradual transition for $d{=}16$, $K{=}12$.}
+% <!-- evidence: R2 -->
+\label{fig:forcerank}
+\end{figure}
+
+\textbf{Training-time rank caps.} At $d{=}8, K{=}4$, training with
+rank cap $k \leq 3$ yields $\recninety \leq 0.0004$, while $k = 4$
+yields 0.97 (Figure~\ref{fig:forcerank}). The observed transition
+occurs at the rank required for exact recovery.
+% <!-- evidence: R2 -->
+The $d{=}16$ configurations also show a transition near $k = K$,
+with some non-monotonic variation above it. In the replication, the
+$K{=}12$ transition is a gradual, irregular rise rather than a step.
+% <!-- evidence: R2b -->
+These results show that gradient-based training can learn and use
+higher rank in this setting. The flat curves in
+\citet{larson2026gradient} do not imply a general inability to do so.

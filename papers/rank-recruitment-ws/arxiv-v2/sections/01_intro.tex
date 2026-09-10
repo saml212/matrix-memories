@@ -1,0 +1,25 @@
+\section{Introduction}
+\label{sec:intro}
+
+Matrix-valued states appear in fast-weight architectures
+\citep{schlag2021linear} and extensions of continuous chain-of-thought
+models \citep{hao2024coconut}. Their rank describes the dimension of the
+image of the linear transformation they represent. Does training learn
+the rank needed for a task, and does restricting that rank impair
+performance?
+
+A recent study added a $d \times d$ matrix latent to a vector-pretrained
+GPT-2 reasoner and found flat rank-$k$ truncation curves across four
+training regimes and four readouts \citep{larson2026gradient}. The study
+identified a limitation: its ProsQA task admits a rank-1 solution.
+That result therefore does not establish how training behaves when
+exact recovery requires higher rank.
+
+We study models trained from scratch on tasks whose exact linear
+solutions require $\rank(Z) \geq K$. A fixed readout and a single matrix
+state isolate the role of rank (\S\ref{sec:setup}). We measure the rank
+learned during training and the effect of training-time rank caps
+(\S\ref{sec:recruit}). We then test repeated application of the learned
+operator, analyze its action on the entity subspace
+(\S\ref{sec:compose}), and examine recovery at larger matrix dimensions
+and longer training budgets (\S\ref{sec:frontier}).

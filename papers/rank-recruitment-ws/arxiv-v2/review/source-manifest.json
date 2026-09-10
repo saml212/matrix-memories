@@ -1,0 +1,58 @@
+{
+  "figures/fig_depth.pdf": {
+    "sha256": "356c22c4089f1514e3bbff59efdad6921871186d90e89b2960d3175cbaed0caa",
+    "bytes": 22434
+  },
+  "figures/fig_forcerank.pdf": {
+    "sha256": "7fb8b6112bffd0611d5c0ad30b699594c5c503d7f35f15755c3091a7665e4d57",
+    "bytes": 20519
+  },
+  "main.bbl": {
+    "sha256": "101fa3f8f7707bd4cb7642aa52abfb73fce05e03d9f5b2649652b3348393e12d",
+    "bytes": 6627
+  },
+  "main.pdf": {
+    "sha256": "614e972db6857e00d80b2e4536030e4c6dbb2de9a0c60664b2af721216e45fae",
+    "bytes": 112935
+  },
+  "main.tex": {
+    "sha256": "2158362cad10eb1232bae8eef452623ff61eb93275b07446efdd2ef09314007b",
+    "bytes": 3617
+  },
+  "neurips.sty": {
+    "sha256": "ef7a55f0a7c9da12fea39af7990a6a314a721b74a23b1544f252e55fcba940cd",
+    "bytes": 11625
+  },
+  "refs.bib": {
+    "sha256": "4e2c2d90eeda7294745bb6968da1f6b6a97f6b62d8242803aea3f123bc92702b",
+    "bytes": 7170
+  },
+  "sections/01_intro.tex": {
+    "sha256": "d7daae92f4df1d72d3d522d2b6e271d255c453f97bf21b767954a1c31ef86efa",
+    "bytes": 1305
+  },
+  "sections/02_setup.tex": {
+    "sha256": "c52c35126ba8cfd08bc0aaee9ae2589c4e297b0dc4c0fbdf82ded942614910fa",
+    "bytes": 2501
+  },
+  "sections/03_recruitment.tex": {
+    "sha256": "c5957c7365f8ef62cca955dcfe4ddb93ddc5d2bfacdb0f3984cd2b2fdb2ac2dc",
+    "bytes": 1770
+  },
+  "sections/04_composition.tex": {
+    "sha256": "a72b0ea0bc3670fb7ce7e828156d323d8ee98c91ea77b59e912e0db2f65444fc",
+    "bytes": 3158
+  },
+  "sections/05_frontier.tex": {
+    "sha256": "99f3e564cead7c54ab68e1554cfa80a893c5433ff2f59895f4b27121ac88e1d3",
+    "bytes": 1825
+  },
+  "sections/06_related.tex": {
+    "sha256": "9b5c4179abb59914a7f707994f60fd4d057a6a1cc23db40bb034e49c03ff3b62",
+    "bytes": 2218
+  },
+  "sections/07_limitations.tex": {
+    "sha256": "22c610338e950102707b77b8f67304c6f40980d0cc65a066f5780a9cf4804fd1",
+    "bytes": 4230
+  }
+}
