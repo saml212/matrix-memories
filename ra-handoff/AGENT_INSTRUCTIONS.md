@@ -2,7 +2,7 @@
 
 **Audience:** the coding agent (Claude or equivalent) working this repo on Will
 Larson's behalf. Not the human brief — that is `README.md`.
-**Repo:** https://github.com/saml212/matrix-states (private)
+**Repo:** https://github.com/saml212/matrix-memories (private)
 **Written:** 2026-08-25
 
 Read this file in full before editing anything under `papers/`,

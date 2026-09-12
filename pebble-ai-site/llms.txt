@@ -31,5 +31,5 @@
 ## About
 
 - [Pebble homepage](https://pebbleml.com): Research thesis, current experiments, roadmap, and dead ends.
-- Source repository: https://github.com/saml212/matrix-states
+- Source repository: https://github.com/saml212/matrix-memories
 - Contact: sam@pebbleml.com

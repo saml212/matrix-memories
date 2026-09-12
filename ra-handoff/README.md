@@ -2,7 +2,7 @@
 
 **For:** Will Larson (Williamlarson2023@gmail.com)
 **From:** Sam Larson (sam@pebbleml.com), PI
-**Repo:** https://github.com/saml212/matrix-states (private) — this folder is `ra-handoff/`
+**Repo:** https://github.com/saml212/matrix-memories (private) — this folder is `ra-handoff/`
 **Written:** 2026-08-24 · **Updated:** 2026-08-25
 
 Welcome. You're taking over the entire paper portfolio — fifteen paper trees,

@@ -15,7 +15,7 @@ record remains `EXPERIMENT_LOG.md` (2026-09-01 #3–#6) and
   `DRY_RUN_BYPASS=1` prefix or the pre-train-gate hook blocks them. Commits
   of new .md files need `CLEAN_BYPASS=1` (documented escape hatch).
 - Remote is `git@github.com:saml212/learned-representations.git` (GitHub
-  says it moved to `saml212/matrix-states`; pushes still work). Push with
+  says it moved to `saml212/matrix-memories`; pushes still work). Push with
   `git push origin HEAD:main` from this worktree (branch
   claude/matrix-state-paper-triage-82d87d).
 - HF: dataset `Slamin/ncr-scaling-artifacts` PUBLIC, 3.28 TB verified. A

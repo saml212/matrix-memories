@@ -1,4 +1,4 @@
-# matrix-states
+# matrix-memories
 
 > Research code, paper sources, and raw result archives from Samuel Larson (Pebble ML) on matrix-valued state in language models: whether gradient descent recruits the rank a task demands, and how to measure it. Readable research notes: https://pebbleml.com
 

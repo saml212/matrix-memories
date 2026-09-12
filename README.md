@@ -1,4 +1,4 @@
-# matrix-states
+# matrix-memories
 
 Matrix-valued state as a representational medium for language models. The
 question running through everything here: when a task fixes how many

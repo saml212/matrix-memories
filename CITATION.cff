@@ -1,12 +1,12 @@
 cff-version: 1.2.0
 message: "If you use this code or these results, please cite the relevant paper."
-title: "matrix-states: matrix-valued state as a representational medium for language models"
+title: "matrix-memories: matrix-valued state as a representational medium for language models"
 authors:
   - family-names: Larson
     given-names: Samuel
     affiliation: Pebble ML
     orcid: "https://orcid.org/0009-0006-1253-9187"
-repository-code: "https://github.com/saml212/matrix-states"
+repository-code: "https://github.com/saml212/matrix-memories"
 url: "https://pebbleml.com"
 preferred-citation:
   type: conference-paper

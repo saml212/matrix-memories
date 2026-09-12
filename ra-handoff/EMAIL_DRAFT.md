@@ -1,6 +1,6 @@
 # Email draft — Sam → Will
 
-**Repo:** https://github.com/saml212/matrix-states (private)
+**Repo:** https://github.com/saml212/matrix-memories (private)
 **Updated:** 2026-08-25
 
 ---
@@ -8,7 +8,7 @@
 ## 🔴 BEFORE YOU SEND: rotate the Hugging Face token
 
 **Do not add Will as a collaborator on
-https://github.com/saml212/matrix-states until this is done.** Adding a
+https://github.com/saml212/matrix-memories until this is done.** Adding a
 collaborator grants full read access to the git *history*, and there is a live
 credential in it.
 
@@ -33,7 +33,7 @@ and read it.
    its git history. **Rotating alone is sufficient to make the leaked value
    worthless**; the scrub is hygiene, and given the SHA-citation cost it may be
    right to skip it.
-3. Then add Will as a collaborator: **https://github.com/saml212/matrix-states**
+3. Then add Will as a collaborator: **https://github.com/saml212/matrix-memories**
    → **Settings** → **Collaborators** → **Add people** → invite
    **Williamlarson2023@gmail.com** (Write access is enough; Admin is not needed).
    He gets an email invite that expires in 7 days.
@@ -103,7 +103,7 @@ informal until the full sweep drains and the pre-registered tests run. Don't let
 anyone write them into a paper before then; the docs say so too.
 
 **What I'm sending.** A folder called `ra-handoff/` in the repo —
-https://github.com/saml212/matrix-states — with six documents:
+https://github.com/saml212/matrix-memories — with six documents:
 
 - **README.md** — **your starting point.** Short: what the job is, what the work
   is in plain language, where everything lives, and the three things to do on day
@@ -169,7 +169,7 @@ time you submit. We're in a good position on this — the science is fully
 auditable from raw data by anyone who wants to check, which is a much stronger
 place to stand than most people have.
 
-**One housekeeping item.** The repo is https://github.com/saml212/matrix-states.
+**One housekeeping item.** The repo is https://github.com/saml212/matrix-memories.
 It's private, and I need to rotate a credential that's sitting in the git history
 before I add anyone to it. I'll do that and send the GitHub invite separately,
 probably same day — it'll come to this address. The zip is self-contained in the

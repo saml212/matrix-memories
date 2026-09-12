@@ -14,14 +14,14 @@ tags:
 # NCR scaling artifacts
 
 Checkpoints and per-cell results from the scaling program behind the
-matrix-states research line (Samuel Larson, Pebble ML): Native Composition
+matrix-memories research line (Samuel Larson, Pebble ML): Native Composition
 Reads and constant-memory recall in a fast-weight language model at 98M, 392M,
 and 1.31B parameters. Roughly 3.9 TB, uploaded from the training box in
 September 2026 so that every checkpoint referenced in the forthcoming papers is
 public.
 
 Paper sources, code, and the small result JSONs live in
-https://github.com/saml212/matrix-states. Readable research notes:
+https://github.com/saml212/matrix-memories. Readable research notes:
 https://pebbleml.com.
 
 ## Layout
@@ -42,4 +42,4 @@ matching analysis scripts and md5 manifests are in the GitHub repository under
 
 ## Citation
 
-See `CITATION.cff` in https://github.com/saml212/matrix-states.
+See `CITATION.cff` in https://github.com/saml212/matrix-memories.
