@@ -13,7 +13,12 @@ for every result live at [pebbleml.com](https://pebbleml.com).
 | Paper | Status | Read | Code | Evidence |
 |---|---|---|---|---|
 | **The Gradient Does Not See Rank: Rank-Indifference in Matrix-CODI on ProsQA** | ICML 2026 Mechanistic Interpretability Workshop (accepted). arXiv:2609.03090 | [arXiv](https://arxiv.org/abs/2609.03090) · [OpenReview](https://openreview.net/forum?id=Spof4PusVI) · [LaTeX source](matrix-thinking/submissions/icml-mi-workshop-2026/) · [finding page](https://pebbleml.com/findings/matrix-codi-rank-blindness.html) | [saml212/matrix-codi-rank-blindness](https://github.com/saml212/matrix-codi-rank-blindness) (MIT) | rank-eval JSONs in the code repo; run archives in `experiment-runs/2026-04-*` |
+| **When the Gradient Sees Rank: Provable Necessity, Causal Recruitment, and Composition in Trained Matrix Memories** | arXiv, submitted September 2026 (ID pending) | [PDF](papers/rank-recruitment-ws/arxiv-v3/main.pdf) · [LaTeX source](papers/rank-recruitment-ws/arxiv-v3/) | [matrix-thinking/chapter2/](matrix-thinking/chapter2/) (`run_task_d.py` binding, `run_task_e.py` composition, `analyze_zdump.py` entity subspace) | evidence rows in [papers/rank-recruitment-ws/brief.md](papers/rank-recruitment-ws/brief.md); archives `experiment-runs/2026-07-01_task_e_20k`, `2026-07-02_task_e_*`, `2026-07-02_stage0_waves` |
 | **The Rank the Task Demands: A Causal Rank Law for Matrix Memories Trained on Group Composition** | arXiv, submitted September 2026 (ID pending) | [PDF](papers/neurreps-ea/arxiv-v3/main.pdf) · [LaTeX source](papers/neurreps-ea/arxiv-v3/) · [finding page](https://pebbleml.com/findings/rank-law.html) | [matrix-thinking/capability_separation/](matrix-thinking/capability_separation/) | [paper-to-evidence map](papers/neurreps-ea/arxiv-v3/README.md); every number traces to a JSON in `experiment-runs/` |
+
+The second and third papers are companions: the binding paper establishes the
+rank law on K-pair associative memory, the rank-law paper extends it to group
+composition. Each cites the other by title until both arXiv IDs exist.
 
 The arXiv version of the ICML paper corrects one data-entry error in the
 workshop version (the seed-1337 replication accuracy; three-seed mean
