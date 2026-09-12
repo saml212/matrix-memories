@@ -40,3 +40,8 @@ The title still says “Exact Composition.” This scrub retains the title for t
 ## Validation
 
 Fresh independent original-prose and original-render audits identified the issues above. A fresh prose recheck passed after the corrections. Final visual inspection and source-preservation checks are recorded in the accompanying review files. The build uses Tectonic on the Mac mini, three passes with intermediates and logs retained. One underfull bibliography line is a non-fatal spacing warning; there are no overfull boxes or unresolved references.
+
+
+## Author-approved abstract follow-up - September 11, 2026
+
+Changed “A prior negative result used a” to “In our earlier study, we used a” at the author’s request. The introduction already cites the earlier paper (`larson2026gradient`); that citation remains there, and no citation was added to the abstract. arXiv permits references in abstract metadata (https://info.arxiv.org/help/prep.html#abstract-required), but this abstract does not need one. This is a wording change only; scientific claims and results are unchanged.
