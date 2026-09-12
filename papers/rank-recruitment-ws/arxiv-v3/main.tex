@@ -1,0 +1,113 @@
+% Named arXiv submission source v3 (2026-09-11).
+% Final publication cleanup of arxiv-v2; experimental results unchanged.
+
+\documentclass{article}
+
+\usepackage[final]{neurips}
+
+% Blank the notice line (the 2025 kit's final mode prints a NeurIPS
+% conference notice by default; this named arXiv build carries no venue
+% notice).
+\makeatletter
+\renewcommand{\@noticestring}{}
+\makeatother
+
+\usepackage{float}
+\usepackage{needspace}
+
+% This paper places table captions below the table, unlike the template.
+% Leave one body-text line between each table and its caption.
+\makeatletter
+\renewenvironment{table}
+  {\setlength{\abovecaptionskip}{\baselineskip}%
+   \setlength{\belowcaptionskip}{0pt}%
+   \@float{table}}
+  {\end@float}
+\makeatother
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+
+\graphicspath{{figures/}}
+\raggedbottom
+
+% Italic body, bold header: the amsthm plain style, matching the jmlr
+% \theorembodyfont{\itshape}\theoremheaderfont{\bfseries} of the base tree.
+\theoremstyle{plain}
+\newtheorem{fact}{Fact}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\recninety}{\mathrm{rec}@0.9}
+\newcommand{\Kmat}{K_{\mathrm{mat}}}
+\newcommand{\Vmat}{V_{\mathrm{mat}}}
+
+\title{When the Gradient Sees Rank: Provable
+Necessity, Causal Recruitment, and Composition in Trained Matrix
+Memories}
+
+\author{%
+  Samuel Larson\\
+  Pebble ML\\
+  \texttt{samlarson@pebbleml.com}%
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Can gradient-based training learn the rank needed to store and compose
+associations in a matrix memory? In our earlier study, we used a
+matrix-augmented reasoner on a task that admits a rank-1 solution,
+leaving this question open. We train matrix memories on $K$ fresh key--value
+bindings whose exact linear recovery requires $\rank(Z) \geq K$.
+A fixed linear readout queries a single matrix state without access to
+the original bindings. Experiments measure recovery by cosine similarity
+greater than 0.9, a threshold distinct from mathematical equality.
+Learned effective rank increases with $K$ across the tested grid
+(Spearman $\rho = 1.0$ at $d = 16$).
+% <!-- evidence: R1 -->
+Training-time rank caps produce a recovery transition near $k = K$:
+at $d = 8$, $K = 4$, rank 3 gives at most 0.0004 recovery and rank 4
+gives 0.97.
+% <!-- evidence: R2 -->
+Four of five seeds retain at least 0.9996 recovery through 21-fold
+self-application of the trained operator.
+% <!-- evidence: R3 -->
+On the entity subspace, the learned operator has effective rank close
+to $K$ and approximates the ideal cycle.
+% <!-- evidence: R5 -->
+For the single converged seed capped below $K$, a calculation using
+the entity-subspace operator and ideal cycle predicts the measured
+cosine within 0.008 through seven applications.
+% <!-- evidence: R4 -->
+Extending training resolves several initial failures, but recovery still
+declines at larger matrix dimensions with encoder width fixed.
+% <!-- evidence: R8 -->
+% <!-- evidence: R7 -->
+\end{abstract}
+
+\noindent\textbf{Keywords:} effective rank, fast weights, associative
+memory, composition
+
+\input{sections/01_intro}
+\input{sections/02_setup}
+\input{sections/03_recruitment}
+\input{sections/04_composition}
+\input{sections/05_frontier}
+\input{sections/06_related}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\input{sections/07_limitations}
+
+\end{document}

@@ -1,0 +1,15 @@
+{
+  "submission_id": "8069718",
+  "status": "awaiting_agreement_confirmation",
+  "source": "source/main.tex",
+  "pdf_sha256": "ffd74c3ebf2dc6860e855da406f3762b3478df51cfe358dbc00a1436001792b8",
+  "upload_zip_sha256": "9879fbb7aa7ebd2d326be7b3b337be6b80b13ed5d38a0b391ef24131f7319e1e",
+  "title": "When the Gradient Sees Rank: Provable Necessity, Causal Recruitment, and Composition in Trained Matrix Memories",
+  "agreement_accepted": false,
+  "uploaded": false,
+  "license_proposed": "CC BY 4.0",
+  "category": "cs.LG",
+  "pending_question": "May I accept arXiv\u2019s Submission Agreement and publish this revised companion paper under CC BY 4.0?",
+  "browser_tab": "448606702",
+  "browser_url": "https://arxiv.org/submit/8069718/start"
+}

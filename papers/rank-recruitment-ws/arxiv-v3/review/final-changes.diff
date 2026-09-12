@@ -1,0 +1,113 @@
+--- v2/main.tex
++++ v3/main.tex
+@@ -1,7 +1,5 @@
+-% Named arXiv working draft v2 (2026-09-10).
+-% Prose and layout revision of arxiv-v1; experimental data, figure files,
+-% result values, title, citations, and evidence tags are preserved.
+-% See SCRUB_LOG.md for wording corrections and verification. Not submitted.
++% Named arXiv submission source v3 (2026-09-11).
++% Final publication cleanup of arxiv-v2; experimental results unchanged.
+ 
+ \documentclass{article}
+ 
+@@ -52,7 +50,7 @@
+ \newcommand{\Vmat}{V_{\mathrm{mat}}}
+ 
+ \title{When the Gradient Sees Rank: Provable
+-Necessity, Causal Recruitment, and Exact Composition in Trained Matrix
++Necessity, Causal Recruitment, and Composition in Trained Matrix
+ Memories}
+ 
+ \author{%
+@@ -87,8 +85,9 @@
+ On the entity subspace, the learned operator has effective rank close
+ to $K$ and approximates the ideal cycle.
+ % <!-- evidence: R5 -->
+-For the single converged seed capped below $K$, the eigenspectrum
+-predicts the measured cosine within 0.008 through seven applications.
++For the single converged seed capped below $K$, a calculation using
++the entity-subspace operator and ideal cycle predicts the measured
++cosine within 0.008 through seven applications.
+ % <!-- evidence: R4 -->
+ Extending training resolves several initial failures, but recovery still
+ declines at larger matrix dimensions with encoder width fixed.
+--- v2/refs.bib
++++ v3/refs.bib
+@@ -18,14 +18,15 @@
+   author    = {Larson, Samuel},
+   booktitle = {ICML 2026 Workshop on Mechanistic Interpretability},
+   year      = {2026},
+-  note      = {ICML 2026 Mechanistic Interpretability Workshop; arXiv preprint submitted Sept 2026}
++  note      = {arXiv:2609.03090},
++  url       = {https://arxiv.org/abs/2609.03090}
+ }
+ 
+ @misc{larson2026ranklaw,
+   title  = {The Rank the Task Demands: A Causal Rank Law for Matrix Memories Trained on Group Composition},
+   author = {Larson, Samuel},
+   year   = {2026},
+-  note   = {Companion paper, arXiv preprint, posted concurrently}
++  note   = {Companion manuscript, submitted to arXiv}
+ }
+ 
+ @article{hao2024coconut,
+--- v2/sections/04_composition.tex
++++ v3/sections/04_composition.tex
+@@ -27,8 +27,8 @@
+ \includegraphics[width=\textwidth]{fig_depth.pdf}
+ \caption{Recovery under repeated application of the learned matrix
+ ($d{=}16$, $K{=}8$). \emph{Left:} mean cosine for the converged seed
+-with rank cap $k{=}7{=}K{-}1$, compared with the prediction from its
+-eigenspectrum alone. \emph{Right:} the fraction of queries with
++with rank cap $k{=}7{=}K{-}1$, compared with a prediction computed
++from its entity-subspace operator and the ideal cycle. \emph{Right:} the fraction of queries with
+ cosine greater than 0.9, averaged over the four converged
+ unconstrained seeds (near 1.0), and shown separately for the
+ rank-capped seed and the fifth unconstrained seed.}
+@@ -43,8 +43,8 @@
+ Its $\recninety$ falls from 0.996 at $h = 1$ to 0.881 at $h = 7$
+ and 0.060 at $h = 21$ (Figure~\ref{fig:depth}).
+ % <!-- evidence: R4 -->
+-The operator's eigenspectrum alone predicts measured cosine within
+-0.008 through $h = 7$ (Table~\ref{tab:depthcurve}).
++A calculation using the entity-subspace operator and ideal cycle
++predicts measured cosine within 0.008 through $h = 7$ (Table~\ref{tab:depthcurve}).
+ % <!-- evidence: R4 -->
+ 
+ \textbf{Action on the entity subspace.} The converged solutions have
+--- v2/sections/06_related.tex
++++ v3/sections/06_related.tex
+@@ -28,7 +28,7 @@
+ architectures, including recurrent fast-weight, attention-readout,
+ and associative-memory models, remains untested.
+ % <!-- evidence: R9 -->
+-The comparison between spectral prediction and recovery across depths
++The comparison between predicted cosine and recovery across depths
+ rests on one converged seed with rank cap $K{-}1$. The other two
+ seeds in that configuration failed under a documented numerical
+ instability in the spectral-projection backward pass. This is a
+--- v2/sections/07_limitations.tex
++++ v3/sections/07_limitations.tex
+@@ -31,7 +31,7 @@
+ \bottomrule
+ \end{tabular}
+ \caption{Recovery across depths for the operator with $d=16$, $K=8$,
+-and rank cap $k = 7 = K - 1$. Cosine predicted from the learned eigenspectrum
++and rank cap $k = 7 = K - 1$. Cosine predicted using the entity-subspace operator and ideal cycle
+ (without raw keys) is compared with measured mean cosine and the
+ fraction of queries with cosine greater than 0.9. Prediction error
+ is below 0.008 through $h = 7$. At $h = 21$, mean cosine remains
+@@ -74,10 +74,9 @@
+ \section{Reproducibility}
+ \label{app:repro}
+ 
+-Training, evaluation, and analysis code and raw artifacts with
+-recorded MD5 checksums accompany the repository release. Per-run
+-JSON archives, including intermediate training checkpoints, support
+-the reported numbers. A versioned script regenerates each figure
++Training, evaluation, and analysis code and archived results are
++available in the public repository.\footnote{\url{https://github.com/saml212/matrix-states}}
++Per-run JSON archives support the reported numbers. A versioned script regenerates each figure
+ and verifies the checksum of every source file it loads. Hypotheses,
+ metrics, rank controls, and decision bands were registered in design
+ documents before training. One metric was re-registered before the

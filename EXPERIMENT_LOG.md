@@ -12163,3 +12163,8 @@ Author-requested prose/spacing work only; no experiments. New working draft `pap
 ## September 11, 2026 - Companion abstract wording
 
 Author approved replacing A prior negative result used a with In our earlier study, we used a in papers/rank-recruitment-ws/arxiv-v2/main.tex. Existing introduction citation retained; no abstract citation added. Six-page PDF rebuilt and page 1 inspected; only approved text changed (line-wrap hyphenation normalized). Desktop deliverables refreshed. Reading paused for a meeting at the earlier-study motivation sentence. No experiments or submission. See arxiv-v2/review/ABSTRACT_FOLLOWUP.md.
+
+
+## September 11, 2026 - Rank recruitment arXiv sign-off and final cleanup
+
+Sam authorized posting the companion after limited final cleanup. Created papers/rank-recruitment-ws/arxiv-v3; title now Composition (not Exact Composition); predicted-cosine wording matches full entity-subspace operator/ideal cycle computation, public code/results URL added, checkpoint release implication removed, self-citations updated. Results and figures unchanged. Independent focused content and six-page render reviews pass. Desktop PDF/ZIP ready. ArXiv draft 8069718 is created; legally binding agreement and CC BY 4.0 confirmation requested and pending, no upload/submission. Earlier rank-law submission unaffected. No new training.
